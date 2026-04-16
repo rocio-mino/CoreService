@@ -41,6 +41,24 @@ public class UsuarioService {
         return usuarioRepository.save(usuarioExistente);
     }
 
+    public Usuario patch(Long id, Usuario usuario) {
+        Usuario usuarioToPatch = usuarioRepository.findById(id).orElse(null);
+        if (usuarioToPatch != null) {
+            if (usuario.getNombre() != null) {
+                usuarioToPatch.setNombre(usuario.getNombre());
+            }
+            if (usuario.getEmail() != null) {
+                usuarioToPatch.setEmail(usuario.getEmail());
+            }
+            if (usuario.getRol() != null) {
+                usuarioToPatch.setRol(usuario.getRol());
+            }
+            return usuarioRepository.save(usuarioToPatch);
+        } else {
+            return null;
+        }
+    }
+
     public void delete(Long id) {
         usuarioRepository.deleteById(id);
     }
